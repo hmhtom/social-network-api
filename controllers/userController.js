@@ -8,6 +8,8 @@ module.exports = {
       .then((users) => res.json(users))
       .catch((error) => res.status(500).json(error));
   },
+
+  //Get single User with userId excluding "__v" field
   getSingleUser(req, res) {
     User.findOne({ _id: req.params.userId })
       .select("-__v")
@@ -17,5 +19,15 @@ module.exports = {
           : res.status(404).json({ message: "User Not Found." })
       )
       .catch((error) => res.status(500).json(error));
+  },
+
+  //Create new user
+  createUser(req, res) {
+    User.create(req.body)
+      .then((user) => res.json(user))
+      .catch((error) => {
+        console.log(error);
+        res.status(500).json(error);
+      });
   },
 };
