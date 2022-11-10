@@ -12,8 +12,10 @@
   "author": "Alex He",
   "license": "MIT",
   "dependencies": {
+    "date-format": "^4.0.14",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "mongoose": "^6.7.2"
+    "mongoose": "^6.7.2",
+    "validator": "^13.7.0"
   }
 }
