@@ -30,4 +30,75 @@ module.exports = {
         res.status(500).json(error);
       });
   },
+
+  //Update User by userId
+  updateUser(req, res) {
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $set: req.body },
+      { runValidators: true, new: true }
+    )
+      .then((user) =>
+        user
+          ? res.json(user)
+          : res.status(404).json({ message: "User Not Found." })
+      )
+      .catch((error) => {
+        console.log(error);
+        res.status(500).json(error);
+      });
+  },
+
+  //Delete User by userId
+  deleteUser(req, res) {
+    User.findOneAndDelete({ _id: req.params.userId })
+      .then((user) =>
+        !user
+          ? res.status(404).json({ message: "User Not Found." })
+          : Thought.deleteMany({ _id: { $in: user.thoughts } })
+      )
+      .then(() =>
+        res.json({ message: "User and associated Thoughts Deleted." })
+      )
+      .catch((error) => {
+        console.log(error);
+        res.status(500).json(error);
+      });
+  },
+
+  //Create Friend with friendId and userId
+  createFriend(req, res) {
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $addToSet: { friends: req.params.friendId } },
+      { new: true }
+    )
+      .then((user) =>
+        user
+          ? res.json(user)
+          : res.status(404).json({ message: "User Not Found." })
+      )
+      .catch((error) => {
+        console.log(error);
+        res.status(500).json(error);
+      });
+  },
+
+  //Delete Friend with friendId and userId
+  deleteFriend(req, res) {
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $pull: { friends: req.params.friendId } },
+      { new: true }
+    )
+      .then((user) =>
+        user
+          ? res.json(user)
+          : res.status(404).json({ message: "User Not Found." })
+      )
+      .catch((error) => {
+        console.log(error);
+        res.status(500).json(error);
+      });
+  },
 };
