@@ -39,7 +39,7 @@
 
 ## DEMO
 
-[Click to view the demo video](https://drive.google.com/file/d/12a078brczwR7ZMWYNweyWwf6JwV3tcp5/view)
+[Click to view the demo video](https://watch.screencastify.com/v/cjvkkgL886SfnuZoToju)
 
 ## Contribution
 
